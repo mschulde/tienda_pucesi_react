@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function TarjetaOferta({ producto, agregarProducto }) {
+function TarjetaOferta({ producto, agregarProducto, onActualizar }) {
     const [contador, setContador] = useState(0);
     const [ahorroAcumulado, setAhorroAcumulado] = useState(0);
 
@@ -26,11 +26,11 @@ function TarjetaOferta({ producto, agregarProducto }) {
         setAhorroAcumulado(ahorroAcumulado + descuentoValor);
     }
 
+
     function comprarProducto() {
         if (contador > 0) {
             if (agregarProducto) {
                 agregarProducto(producto.nombre, contador, precioFinal, producto.esLicor, ahorroAcumulado);
-                alert("Se agregó " + producto.nombre + " al carrito.");
             }
         } else {
             alert("Primero presiona 'Agregar' para elegir la cantidad.");
@@ -50,7 +50,7 @@ function TarjetaOferta({ producto, agregarProducto }) {
 
             <div className="card-body">
                 <h4 className="card-title">{producto.nombre}</h4>
-                <p className="card-text text-decoration-line-through text-muted mb-1">
+                <p className="card-text mb-1">
                     Antes: ${producto.precio.toFixed(2)}
                 </p>
 
@@ -89,8 +89,8 @@ function TarjetaOferta({ producto, agregarProducto }) {
 
                 <h5 className="mt-3">Cantidad: {contador}</h5>
                 <h5>Subtotal: ${subtotal.toFixed(2)}</h5>
-                <h5 className="text-success">Ahorro: ${ahorroAcumulado.toFixed(2)}</h5>
-                <h4 className="fw-bold">Total Final: ${totalFinal.toFixed(2)}</h4>
+                <h5 className="fw-bold">Ahorro: ${ahorroAcumulado.toFixed(2)}</h5>
+                <h4 className="fw-bold">Total Final (inc. IVA): ${totalFinal.toFixed(2)}</h4>
             </div>
         </section>
     );

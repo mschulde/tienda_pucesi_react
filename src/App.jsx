@@ -7,13 +7,12 @@ import Productos from './pages/Productos'
 import Carrito from './pages/Carrito'
 import CatalogoWeb from './pages/CatalogoWeb'
 import Ofertas from './pages/Ofertas'
-import Buscar from './pages/Buscar'
-import DetalleProducto from './pages/DetalleProducto'
 import { BrowserRouter, Route, Routes as Routers } from 'react-router-dom'
 
 function App() {
   const [listaProductos, setListaProductos] = useState([]);
 
+  // Recibe el ahorro opcional (0 si es producto normal, >0 si viene de Ofertas)
   function agregarProducto(nombre, cantidad, precio, esLicor, ahorro) {
     const nuevoProducto = {
       nombre: nombre,
@@ -41,8 +40,6 @@ function App() {
             <Route path="/mis-compras" element={<Carrito listaProductos={listaProductos} vaciarCarrito={vaciarCarrito} />} />
             <Route path="/catalogo" element={<CatalogoWeb agregarProducto={agregarProducto} />} />
             <Route path="/ofertas" element={<Ofertas agregarProducto={agregarProducto} />} />
-            <Route path="/buscar" element={<Buscar agregarProducto={agregarProducto} />} />
-            <Route path="/producto/:id" element={<DetalleProducto agregarProducto={agregarProducto} />} />
             <Route path="/contactos" element={<Contactos />} />
           </Routers>
         </section>

@@ -5,59 +5,23 @@ function Carrito({ listaProductos, vaciarCarrito }) {
     const [ciudad, setCiudad] = useState("");
     const [edad, setEdad] = useState("");
 
-    let edadNum = parseInt(edad);
+    let textoIva= "";
     let filas = [];
     let totalGeneral = 0;
+    let totalAhorrado = 0;
 
-    // Declaración inicial obligatoria para evitar el error ReferenceError
-    let porcentajeIva = 0.15;
-    let textoIva = "15%";
-
-    if (edad !== "" && edadNum < 18) {
-        porcentajeIva = 0;
-        textoIva = "0% (Menor de edad)";
-    } else if (edad !== "" && edadNum > 65) {
-        porcentajeIva = 0.08;
-        textoIva = "8% (Tercera edad)";
-    }
 
     for (let i = 0; i < listaProductos.length; i++) {
         let item = listaProductos[i];
         let subtotal = item.precio * item.cantidad;
+        totalAhorrado = totalAhorrado + (item.ahorro || 0);
 
-        if (edad !== "" && edadNum < 18 && item.esLicor) {
-            filas.push(
-                <tr className="table-danger">
-                    <td>{item.nombre} (Licor)</td>
-                    <td>{item.cantidad}</td>
-                    <td>${item.precio.toFixed(2)}</td>
-                    <td colSpan="4" className="fw-bold text-danger">
-                        Venta prohibida a menores de edad (No se suma al total)
-                    </td>
-                </tr>
-            );
-        } else {
-            let valorIva = subtotal * porcentajeIva;
-            let valorIce = 0;
-
-            if (item.esLicor) {
-                valorIce = subtotal * 0.19;
-            }
-
-            let totalFila = subtotal + valorIva + valorIce;
-            totalGeneral = totalGeneral + totalFila;
-
-            filas.push(
-                <tr>
-                    <td>{item.nombre}</td>
-                    <td>{item.cantidad}</td>
-                    <td>${item.precio.toFixed(2)}</td>
-                    <td>${subtotal.toFixed(2)}</td>
-                    <td>${valorIva.toFixed(2)}</td>
-                    <td>${valorIce.toFixed(2)}</td>
-                    <td className="fw-bold">${totalFila.toFixed(2)}</td>
-                </tr>
-            );
+        if (edad !== "" && edad < 18) {
+            porcentajeIva = 0;
+            textoIva = "0% (Menor de edad)";
+        } else if (edad !== "" && edad> 65) {
+            porcentajeIva = 0.08;
+            textoIva = "8% (Tercera edad)";
         }
     }
 
@@ -84,7 +48,7 @@ function Carrito({ listaProductos, vaciarCarrito }) {
         <div className="p-4">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="fw-bold m-0" style={{ color: '#005baa' }}>Mis Compras (Carrito)</h2>
-
+                
                 {listaProductos.length > 0 && (
                     <button className="btn btn-outline-danger fw-bold" onClick={vaciarCarrito}>
                         Vaciar Compra
@@ -97,32 +61,32 @@ function Carrito({ listaProductos, vaciarCarrito }) {
                 <div className="row">
                     <div className="col-md-4 mb-2">
                         <label className="form-label fw-bold">Nombre:</label>
-                        <input
-                            type="text"
-                            className="form-control"
+                        <input 
+                            type="text" 
+                            className="form-control" 
                             placeholder="Ej. Sebastian Chulde"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
+                            value={nombre} 
+                            onChange={(e) => setNombre(e.target.value)} 
                         />
                     </div>
                     <div className="col-md-4 mb-2">
                         <label className="form-label fw-bold">Ciudad:</label>
-                        <input
-                            type="text"
-                            className="form-control"
+                        <input 
+                            type="text" 
+                            className="form-control" 
                             placeholder="Ej. Ibarra"
-                            value={ciudad}
-                            onChange={(e) => setCiudad(e.target.value)}
+                            value={ciudad} 
+                            onChange={(e) => setCiudad(e.target.value)} 
                         />
                     </div>
                     <div className="col-md-4 mb-2">
                         <label className="form-label fw-bold">Edad:</label>
-                        <input
-                            type="number"
-                            className="form-control"
+                        <input 
+                            type="number" 
+                            className="form-control" 
                             placeholder="Ingresa tu edad"
-                            value={edad}
-                            onChange={(e) => setEdad(e.target.value)}
+                            value={edad} 
+                            onChange={(e) => setEdad(e.target.value)} 
                         />
                     </div>
                 </div>
@@ -134,7 +98,7 @@ function Carrito({ listaProductos, vaciarCarrito }) {
             </div>
 
             {listaProductos.length === 0 ? (
-                <p className="text-muted fs-5">Aún no has comprado ningún producto. Ve a Productos, Catálogo, Ofertas o Buscar y presiona "Comprar".</p>
+                <p className="text-muted fs-5">Aún no has comprado ningún producto. Ve a la sección Productos y presiona "Comprar".</p>
             ) : (
                 <div>
                     <table className="table table-bordered table-striped text-center">

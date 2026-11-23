@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 function CardProducto({ producto, onActualizar, agregarProducto }) {
     const [descuento, setDescuento] = useState(0);  
@@ -11,7 +10,7 @@ function CardProducto({ producto, onActualizar, agregarProducto }) {
     let subtotal = total * contador;
     let totalF = subtotal - (subtotal * (descuento / 100));
     
-    function mostrarProducto() {
+    function mostrarProducto(){
         setContador(contador + 1);
     }
 
@@ -45,15 +44,15 @@ function CardProducto({ producto, onActualizar, agregarProducto }) {
                 <p className="card-text">${producto.precio.toFixed(2)}</p>
 
                 <p className="fw-bold"> IVA (15%): ${iva.toFixed(2)}</p>
-                <p className="fw-bold badge bg-success"> Total: ${total.toFixed(2)}</p><br />
+                <p className="fw-bold badge bg-success"> Total: ${total.toFixed(2)}</p><br></br>
 
                 <span className={producto.disponible ? "badge bg-success" : "badge bg-danger"}>
                     {producto.disponible ? "Disponible" : "No Disponible"}
-                </span><br />
+                </span><br></br>
 
                 <span className={stock > 10 ? "badge bg-success" : stock >= 5 ? "badge bg-warning" : "badge bg-danger"}>
                     Stock: {stock}
-                </span><br />
+                </span><br></br>
 
                 <button className="btn btn-primary me-2" onClick={mostrarProducto}>
                     Solicitar
@@ -63,29 +62,18 @@ function CardProducto({ producto, onActualizar, agregarProducto }) {
                     Comprar
                 </button>
 
-                {producto.id && (
-                    <Link to={"/producto/" + producto.id} className="btn btn-link btn-sm w-100 mt-2">
-                        Ver detalle
-                    </Link>
-                )}
-
                 <h3>Cantidad: {contador}</h3>
 
                 <h3>Subtotal: ${subtotal.toFixed(2)}</h3>
 
                 <h6> % Descuento: </h6>
-                <input 
-                    type="number" 
-                    min="10" 
-                    className="form-control form-control-sm" 
-                    value={descuento} 
-                    onChange={(e) => setDescuento(parseFloat(e.target.value) || 0)} 
-                />
+                <input type="number" min="10" className="form-control form-control-sm" value={descuento} onChange={(e) => setDescuento(parseFloat(e.target.value) || 0)}></input>
 
                 <h3>totalF: ${totalF.toFixed(2)}</h3>
+
             </div>
         </section>
-    );
+    )
 }
 
 export default CardProducto;

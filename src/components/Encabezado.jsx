@@ -22,7 +22,6 @@ function encabezado({ titulo }) {
                             <Link className="nav-link" to="/mis-compras">Carrito</Link>
                             <Link className="nav-link" to="/catalogo">Catalogo</Link>
                             <Link className="nav-link" to="/ofertas">Ofertas</Link>
-                            <Link className="nav-link" to="/buscar">Buscar</Link>
                             <Link className="nav-link" to="/contactos">Contactos</Link>
                         </div>
                     </div>
